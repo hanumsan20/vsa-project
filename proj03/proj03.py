@@ -39,9 +39,9 @@ magic_number = random.randint(1, 9)
 
 
 
-start = input("\nGuess a number between 1 and 9 inclusive: ")
+start = input("\nGuess an integer between 1 and 9 inclusive: ")
 
-attempts = 0
+attempts = 1
 
 
 
@@ -56,9 +56,5 @@ while start != magic_number:
         start = input("\nEnter another number to guess: ")
 
 if start == magic_number:
-    print "Good job! You solved it, I guess..."
+    print "Good job! You solved it!"
     print "You guessed it in " + str(attempts) + " attempts!"
-
-
-
-
