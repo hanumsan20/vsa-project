@@ -1,6 +1,12 @@
-# Name:
-# Date:
+# Name: Santosh and Rich
+# Date: 6/22/17
 
+"""
+LIST OF KNOWN ERRORS:
+1) A word containing the same letter several times (Ex: aardvark)
+2) Program saying that player has ran out of guesses, despite that being false
+3) Words less than a certain amount of letters (Ex: 5 letters) causes program to say "Out of Range"
+"""
 
 # proj06: Hangman
 
@@ -59,6 +65,7 @@ def hangman():
     for letter in word:
         word_in_list.append(letter)
 
+
     # (TO BE DELETED):.
     print "Current word: " + str(word_in_list)
     # (TO BE DELETED)^
@@ -68,7 +75,7 @@ def hangman():
     print "I am thinking of a word that is " + str(len(word_in_list)) + " letters long!"
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     guesses = 8
-    for var in range(0,9):
+    for var in range(0,(guesses + 1)):
         print "\nYou have " + str(guesses) + " guesses remaining!"
         guess_letter = raw_input("Please guess a letter: ").lower()
 
@@ -141,9 +148,9 @@ def hangman():
             if word_in_list == []:
                 print "\nYou finished the game! Hooray!"
 
-            #(TO BE DELETED):
+#(TO BE DELETED):
             print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
+#(TO BE DELETED)^
 
 
         elif guess_letter == word[5]:
