@@ -54,178 +54,68 @@ def choose_word(wordlist):
 wordlist = load_words()
 
 # your code begins here!
-
-def hangman():
-    word = choose_word(wordlist)
-
-    word_in_list = []
-
-    final_word_reveal = []
-
-    for letter in word:
-        word_in_list.append(letter)
-
-
-    # (TO BE DELETED):.
-    print "Current word: " + str(word_in_list)
-    # (TO BE DELETED)^
-
-
-    print "\nWelcome to the game, Hangman!"
-    print "I am thinking of a word that is " + str(len(word_in_list)) + " letters long!"
-    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    guesses = 8
-    for var in range(0,(guesses + 1)):
-        print "\nYou have " + str(guesses) + " guesses remaining!"
-        guess_letter = raw_input("Please guess a letter: ").lower()
-
-        if guess_letter == word[0]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
+word_in_list = []
+word = choose_word(wordlist)
+for letter in word:
+    word_in_list.append(letter)
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+guesses = 0
+wordlength = int(len(word_in_list))
+alphabetlength = int(len(alphabet))
+y = 0
+z = 0
+b = 0
+final_word_reveal = []
+var3 = 0
+var4 = 0
+list = []
+list1 = []
+for letter in word_in_list:
+    list.append(letter)
+for letter in word_in_list:
+    list1.append(letter)
+for var in range(len(word_in_list)):
+    list[b] = '_'
+    b = b + 1
+while word_in_list != []:
+    guess_letter = raw_input('Guess a letter')
+    for var in range(wordlength):
+        if guess_letter == word_in_list[y]:
+            var3 = 1
             word_in_list.remove(str(guess_letter))
             final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
-
-        elif guess_letter == word[1]:
-            print "\nGreat guess!"
+        else:
+            y = y + 1
+    if var3 == 1:
+        guesses = guesses - 1
+        var3 = 0
+        print "\nGreat guess!"
+    for var2 in range(alphabetlength):
+        if guess_letter == alphabet[z]:
             alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
-
-
-        elif guess_letter == word[2]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
-
-
-        elif guess_letter == word[3]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
+        else:
+            z = z + 1
+    if guesses == 7:
+        var4 = 1
+        word_in_list = []
+    guesses = guesses + 1
+    y = 0
+    z = 0
+    wordlength = int(len(word_in_list))
+    alphabetlength = int(len(alphabet))
+    if word_in_list != []:
+        print "Available letters: " + str(alphabet)
+        print "You have", 8 - guesses, "guesses left."
+    if word_in_list == []:
+        if var4 == 0:
+            print "You win"
+        if var4 == 1:
+            print "You lose.  The word is", word
+    c = 0
+    for var5 in range(len(list)):
+        if guess_letter == list1[c]:
+            list[c] = list1[c]
+        c = c + 1
+    print list
 
 
-        elif guess_letter == word[4]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-#(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-#(TO BE DELETED)^
-
-
-        elif guess_letter == word[5]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
-
-        elif guess_letter == word[6]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
-
-        elif guess_letter == word[7]:
-            print "\nGreat guess!"
-            alphabet.remove(str(guess_letter))
-            word_in_list.remove(str(guess_letter))
-            final_word_reveal.append(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-
-            if word_in_list == []:
-                print "\nYou finished the game! Hooray!"
-
-            #(TO BE DELETED):
-            print "Current word: " + str(word_in_list)
-            #(TO BE DELETED)^
-
-        # elif guess_letter == word[8]:
-        #     print "\nGreat guess!"
-        #     alphabet.remove(str(guess_letter))
-        #     word_in_list.remove(str(guess_letter))
-        #     print "Available letters: " + str(alphabet)
-        #
-        #     if word_in_list == []:
-        #         print "\nYou finished the game! Hooray!"
-        #
-        #     #(TO BE DELETED):
-        #     print "Current word: " + str(word_in_list)
-        #     #(TO BE DELETED)^
-
-
-
-        elif guess_letter != word[0] or guess_letter != word[1] or guess_letter != word[2] or guess_letter != word[3] or guess_letter != word[4] or guess_letter != word[5] or guess_letter != word[6] or guess_letter != word[7]:
-            print "\nThat is not correct. Please try again!"
-            alphabet.remove(str(guess_letter))
-            print "Available letters: " + str(alphabet)
-            guesses = guesses - 1
-
-    # if player runs out of guesses:
-    print "\nI am sorry but you have ran out of guesses!"
-    print "The word was: " + str(word) + "!"
-
-        # else:
-        #     print "That is not correct. Please try again!"
-        #     alphabet.remove(str(guess_letter))
-        #     print "Available letters: " + str(alphabet)
-        #     guesses = guesses - 1
-
-
-
-hangman()
