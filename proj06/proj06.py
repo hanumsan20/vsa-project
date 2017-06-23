@@ -1,4 +1,4 @@
-## Name: Santosh and Rich
+# Name: Santosh and Rich
 # Date: 6/22/17
 
 """
@@ -58,35 +58,34 @@ word_in_list = []
 word = choose_word(wordlist)
 for letter in word:
     word_in_list.append(letter)
-
-#
-
-print word_in_list
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 guesses = 0
 wordlength = int(len(word_in_list))
 alphabetlength = int(len(alphabet))
 y = 0
 z = 0
+b = 0
 final_word_reveal = []
 var3 = 0
-
-
-print "Welcome to Hangman!"
-
-
+var4 = 0
+list = []
+list1 = []
+for letter in word_in_list:
+    list.append(letter)
+for letter in word_in_list:
+    list1.append(letter)
+for var in range(len(word_in_list)):
+    list[b] = '_'
+    b = b + 1
 while word_in_list != []:
-    guess_letter = raw_input('\nGuess a letter: ')
+    guess_letter = raw_input('Guess a letter')
     for var in range(wordlength):
         if guess_letter == word_in_list[y]:
             var3 = 1
             word_in_list.remove(str(guess_letter))
-
             final_word_reveal.append(str(guess_letter))
         else:
             y = y + 1
-        if word_in_list == []:
-            print
     if var3 == 1:
         guesses = guesses - 1
         var3 = 0
@@ -97,23 +96,26 @@ while word_in_list != []:
         else:
             z = z + 1
     if guesses == 7:
-        print 'gameover'
+        var4 = 1
         word_in_list = []
     guesses = guesses + 1
-
-
-
-
     y = 0
     z = 0
     wordlength = int(len(word_in_list))
     alphabetlength = int(len(alphabet))
-    print "Available letters: " + str(alphabet)
-    print word_in_list
+    if word_in_list != []:
+        print "Available letters: " + str(alphabet)
+        print "You have", 8 - guesses, "guesses left."
+    if word_in_list == []:
+        if var4 == 0:
+            print "You win"
+        if var4 == 1:
+            print "You lose.  The word is", word
+    c = 0
+    for var5 in range(len(list)):
+        if guess_letter == list1[c]:
+            list[c] = list1[c]
+        c = c + 1
+    print list
 
-print "Good game!"
-# Given: _ _ _
-# >>> Guess a letter:
-# <<< "d"
-# >>> d _ _
 
