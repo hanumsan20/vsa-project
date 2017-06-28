@@ -7,15 +7,16 @@ import time
 from project_util import translate_html
 from news_gui import Popup
 
-#-----------------------------------------------------------------------
+
+# -----------------------------------------------------------------------
 #
 # proj08: RSS Feed Filter
 
-#======================
+# ======================
 # Code for retrieving and parsing
 # Google and Yahoo News feeds
 # Do not change this code
-#======================
+# ======================
 
 def process(url):
     """
@@ -38,15 +39,13 @@ def process(url):
         ret.append(newsStory)
     return ret
 
-#======================
+
+# ======================
 # Part 1
 # Data structure design
-#======================
+# ======================
 
 # Problem 1
-# - COMPLETE
-
-# TODO: NewsStory
 
 class NewsStory(object):
     def __init__(self, guid, title, subject, summary, link):
@@ -58,14 +57,22 @@ class NewsStory(object):
 
     def get_guid(self):
         return self.guid
+
     def get_title(self):
         return self.title
+
     def get_subject(self):
         return self.subject
+
     def get_summary(self):
         return self.summary
+
     def get_link(self):
         return self.link
+
+
+# TODO: NewsStory
+
 #======================
 # Part 2
 # Triggers
@@ -88,10 +95,60 @@ class Trigger(object):
 
 # TODO: WordTrigger
 
+class WordTrigger(Trigger):
+    def __init__(self, word):
+        self.word = word
+
+        # Makes the word lowercase
+        word = word.lower()
+
+    # Body refers to the text in the news story
+    def is_word_in(self, body):
+        body = body.lower()
+
+    # For loop added to check each character (including punctuation in the body content of the news story)
+        for characters in body:
+            if characters in string.punctuation:
+                body = body.replace(characters, ' ')
+                #body = body.replace(characters, '')
+    # Split the body back up
+    #     body = body.split()
+
+        if self.word in body:
+            return True
+
+        else:
+            return False
+
 # TODO: TitleTrigger
+
+class TitleTrigger(WordTrigger):
+    def evaluate(self, story):
+
+        title = story.get_title()
+
+        notification = self.is_word_in(title)
+
+        return notification
+# 
+# 
+# 
 # TODO: SubjectTrigger
+
+class SubjectTrigger(WordTrigger):
+    def evaluate(self, story):
+        subject = story.get_subject()
+        notification = self.is_word_in(subject)
+        return notification
+
+
 # TODO: SummaryTrigger
 
+class SummaryTrigger(WordTrigger):
+    def evaluate(self, story):
+        summary = story.get_summary()
+        notification = self.is_word_in(summary)
+        return notification
 
 # Composite Triggers
 # Problems 6-8
