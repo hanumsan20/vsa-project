@@ -1,4 +1,4 @@
-# Name:
+# Name: Santosh and Kyle
 # Date:
 
 # proj07: Word Game
@@ -22,10 +22,11 @@ SCRABBLE_LETTER_VALUES = {
 
 WORDLIST_FILENAME = "words.txt"
 
+
 def load_words():
     """
     Returns a list of valid words. Words are strings of lowercase letters.
-    
+
     Depending on the size of the word list, this function may
     take a while to finish.
     """
@@ -39,6 +40,7 @@ def load_words():
     print "  ", len(wordlist), "words loaded."
     return wordlist
 
+
 def get_frequency_dict(sequence):
     """
     Returns a dictionary where the keys are elements of the sequence
@@ -51,9 +53,9 @@ def get_frequency_dict(sequence):
     # freqs: dictionary (element_type -> int)
     freq = {}
     for x in sequence:
-        freq[x] = freq.get(x,0) + 1
+        freq[x] = freq.get(x, 0) + 1
     return freq
-	
+
 
 # (end of helper code)
 # -----------------------------------
@@ -62,22 +64,42 @@ def get_frequency_dict(sequence):
 # Problem #1: Scoring a word
 #
 def get_word_score(word, n):
-    """
+    # The score begins at 0
+    score_of_word = 0
+
+    # For loop used to check through each letter in executed word and calculate the final score of the inputted word.
+    for letter in word:
+        score_of_word = score_of_word + SCRABBLE_LETTER_VALUES[letter]
+
+    # variable which holds the score of each word
+    score_of_word = score_of_word * len(word)
+
+
+    # Indicates if bonus is met by using all the letters in the hand at once.
+    if n == len(word):
+        score_of_word = score_of_word + 50
+
+    return score_of_word
+
+
+"""
     Returns the score for a word. Assumes the word is a
     valid word.
 
-	The score for a word is the sum of the points for letters
-	in the word multiplied by the length of the word, plus 50
-	points if all n letters are used on the first go.
+   The score for a word is the sum of the points for letters
+   in the word multiplied by the length of the word, plus 50
+   points if all n letters are used on the first go.
 
-	Letters are scored as in Scrabble; A is worth 1, B is
-	worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
+   Letters are scored as in Scrabble; A is worth 1, B is
+   worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
 
     word: string (lowercase letters)
     returns: int >= 0
     """
-    # TO DO...
-    
+
+
+# TO DO...
+
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -95,8 +117,9 @@ def display_hand(hand):
     """
     for letter in hand.keys():
         for j in range(hand[letter]):
-             print letter,              # print all on the same line
-    print                               # print an empty line
+            print letter,  # print all on the same line
+    print  # print an empty line
+
 
 #
 # Make sure you understand how this function works and what it does!
@@ -113,54 +136,97 @@ def deal_hand(n):
     n: int >= 0
     returns: dictionary (string -> int)
     """
-    hand={}
+    hand = {}
     num_vowels = n / 3
-    
+
     for i in range(num_vowels):
-        x = VOWELS[random.randrange(0,len(VOWELS))]
+        x = VOWELS[random.randrange(0, len(VOWELS))]
         hand[x] = hand.get(x, 0) + 1
-        
-    for i in range(num_vowels, n):    
-        x = CONSONANTS[random.randrange(0,len(CONSONANTS))]
+
+    for i in range(num_vowels, n):
+        x = CONSONANTS[random.randrange(0, len(CONSONANTS))]
         hand[x] = hand.get(x, 0) + 1
-        
+
     return hand
+
 
 #
 # Problem #2: Update a hand by removing letters
-#
+# frequency=get_frequency_dict()
+
+# To update the hand by removing the letters
 def update_hand(hand, word):
-    """
+    changed_hand = hand.copy()
+    
+    
+    for letter in word:
+        # if the letter is inputted inside the hand
+        if letter in hand:
+            # Whatever letters are inputted get removed by taking the updated hand and subtracting 1 from the hand
+            changed_hand[letter] = changed_hand[letter] - 1
+
+    return changed_hand
+
+
+"""
     Assumes that 'hand' has all the letters in word.
-	In other words, this assumes that however many times
-	a letter appears in 'word', 'hand' has at least as
-	many of that letter in it. 
+   In other words, this assumes that however many times
+   a letter appears in 'word', 'hand' has at least as
+   many of that letter in it. 
 
     Updates the hand: uses up the letters in the given word
     and returns the new hand, without those letters in it.
 
     Has no side effects: does not modify hand.
-
     word: string
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
-    """
-    # TO DO ...
+"""
+
+
+# TO DO ...
 
 #
 # Problem #3: Test word validity
-#
+
+
 def is_valid_word(word, hand, word_list):
-    """
+    handcopy = hand.copy()
+    copy_of_word = word
+
+    validity = True
+    if word not in word_list:
+        validity = False
+    for letter in copy_of_word:
+        if letter in handcopy:
+            if handcopy[letter] != 0:
+                handcopy[letter] = handcopy[letter] - 1
+            else:
+                validity = False
+        elif letter not in handcopy:
+            validity = False
+    return validity
+
+    #     for letter in wordcopy:
+    #         if letter not in handcopy:
+    #             validity = False
+    #         elif letter in handcopy:
+    #             if handcopy[letter] != 0:
+    #                 handcopy[letter] = handcopy[letter] - 1
+    #             else:
+    #                 validity = False
+
+
+"""
     Returns True if word is in the word_list and is entirely
     composed of letters in the hand. Otherwise, returns False.
     Does not mutate hand or word_list.
-    
+
     word: string
     hand: dictionary (string -> int)
     word_list: list of lowercase strings
     """
-    # TO DO...
+
 
 def calculate_handlen(hand):
     handlen = 0
@@ -168,16 +234,49 @@ def calculate_handlen(hand):
         handlen += v
     return handlen
 
+
 #
 # Problem #4: Playing a hand
 #
 def play_hand(hand, word_list):
+    # Length of the hand deck; how many letters are in the initial deck
+    word = ''
 
-    """
+    # starting word score set to 0
+    score = 0
+    n = 7
+    print "=========================================="
+    print "Welcome to the Word Game - Version 1.0!"
+    while HAND_SIZE != 0 and word != ".":
+        print "=========================================="
+        print "Your current hand is:",
+
+        display_hand(hand)
+        print "=========================================="
+
+        # The lower function allows a word to be in any case; (ex: "bIg" or "BIg" or "BIG")
+        word = raw_input("Please type a word or enter a '.' to finish the game:  ").lower()
+
+
+        validity = is_valid_word(word, hand, word_list)
+        if validity == False and word != ".":
+            print "=========================================="
+            print "\nI'm sorry but " + "'" + word + "'" + " is not a qualified word. Try again!"
+        elif word != ".":
+            score = score + get_word_score(word, HAND_SIZE)
+            print "=========================================="
+            print "\n", word, "scored you", get_word_score(word, n), "points. Your total score is:", score, "points"
+            hand = update_hand(hand, word)
+
+    print "=========================================="
+    print "\nThank you for playing! You earned", score, "points."
+
+
+"""
     Allows the user to play the given hand, as follows:
 
     * The hand is displayed.
-    
+
     * The user may input a word.
 
     * An invalid word is rejected, and a message is displayed asking
@@ -197,15 +296,43 @@ def play_hand(hand, word_list):
 
       hand: dictionary (string -> int)
       word_list: list of lowercase strings
-      
+
     """
-    # TO DO ...
+
+
+# TO DO ...
 
 #
 # Problem #5: Playing a game
 # Make sure you understand how this code works!
-# 
+
+
 def play_game(word_list):
+    # To call variable hand
+    
+    hand = deal_hand(HAND_SIZE)
+    play_hand(hand, word_list)
+    menu_option = ""
+    while menu_option != "e":
+        print "\n=========================================="
+        print "Menu options:"
+        menu_option = raw_input("\nTo use a new hand, enter 'n'" + "\nTo replay your previous hand enter 'r'" + "\nTo quit or exit, please type 'q': ")
+
+        # EXIT THE GAME
+        if menu_option == "q":
+            print "Thanks for playing The Word Game! See you later."
+            quit()
+
+        # PLAY WITH NEW HAND
+        elif menu_option == "n":
+            hand = deal_hand(HAND_SIZE)
+            play_hand(hand, word_list)
+
+        # REPLAY HAND
+        elif menu_option == "r":
+            play_hand(hand, word_list)
+
+
     """
     Allow the user to play an arbitrary number of hands.
 
@@ -219,8 +346,9 @@ def play_game(word_list):
     * If the user inputs 'e', exit the game.
 
     * If the user inputs anything else, ask them again.
-    """
+"""
     # TO DO...
+
 
 #
 # Build data structures used for entire session and play game
